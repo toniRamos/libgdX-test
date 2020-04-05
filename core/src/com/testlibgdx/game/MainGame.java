@@ -20,7 +20,7 @@ public class MainGame extends Game {
 	 * just public variables. For instance, you could create an ArrayList or maybe use some
 	 * structure such as a map where you can associate a number or a string to a screen.
 	 */
-	public BaseScreen loadingScreen, menuScreen, exampleMoveActorScreen;
+	public BaseScreen loadingScreen, menuScreen, exampleMoveActorScreen, exampleTextureRegionAnimationScreen;
 
 	@Override
 	public void create() {
@@ -29,6 +29,7 @@ public class MainGame extends Game {
 		// argument, then the type of the asset in the second argument.
 		manager = new AssetManager();
 		manager.load("daxbotsheet_alone.png", Texture.class);
+		manager.load("daxbotsheet.png", Texture.class);
 
 		// Enter the loading screen to load the assets.
 		loadingScreen = new LoadingScreen(this);
@@ -43,6 +44,7 @@ public class MainGame extends Game {
 	public void finishLoading() {
 		menuScreen = new MenuScreen(this);
 		exampleMoveActorScreen = new ExampleMoveActorScreen(this);
+		exampleTextureRegionAnimationScreen = new ExampleTextureRegionAnimationScreen(this);
 		setScreen(menuScreen);
 	}
 

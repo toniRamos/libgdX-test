@@ -1,7 +1,7 @@
 package com.testlibgdx.game.entities;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
@@ -10,15 +10,18 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class PlayerActor  extends Actor{
     /** The player texture. */
-    private Texture player;
+    private TextureRegion player;
 
-    public PlayerActor(Texture player) {
+    public PlayerActor(TextureRegion player) {
         this.player = player;
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.draw(player, getX(), getY(), getWidth(), getHeight());
+        batch.draw(this.player, getX(), getY(), getWidth(), getHeight());
     }
-    ;
+
+    public void setTexture (TextureRegion texture){
+        this.player = texture;
+    }
 }

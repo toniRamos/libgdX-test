@@ -44,7 +44,7 @@ public class MenuScreen extends BaseScreen {
     private Skin skin;
 
     /** The exampleMoveActor button you use to jump to the game screen. */
-    private TextButton exampleMoveActor;
+    private TextButton exampleMoveActor, exampleTextureRegionScreen;
 
     private ScrollPane scrollPane;
     private Table scrollTable;
@@ -57,8 +57,9 @@ public class MenuScreen extends BaseScreen {
 
         //Label
         final Label labelButton = new Label("Example move a actor ->  ", skin);
+        final Label labelButton2 = new Label("Example texture region animation ->  ", skin);
 
-        //Button
+        //Buttons
         exampleMoveActor = new TextButton("Play", skin);
         // Add capture listeners. Capture listeners have one method, changed, that is executed
         // when the button is pressed or when the user interacts somehow with the widget. They are
@@ -71,10 +72,25 @@ public class MenuScreen extends BaseScreen {
             }
         });
 
+        exampleTextureRegionScreen = new TextButton("Play", skin);
+        // Add capture listeners. Capture listeners have one method, changed, that is executed
+        // when the button is pressed or when the user interacts somehow with the widget. They are
+        // cool because they let you execute some code when you press them.
+        exampleTextureRegionScreen.addCaptureListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                // Take me to the game screen!
+                game.setScreen(game.exampleTextureRegionAnimationScreen);
+            }
+        });
+
         final Table scrollTable = new Table();
         scrollTable.row();
         scrollTable.add(labelButton);
         scrollTable.add(exampleMoveActor);
+        scrollTable.row();
+        scrollTable.add(labelButton2);
+        scrollTable.add(exampleTextureRegionScreen);
 
         final ScrollPane scroller = new ScrollPane(scrollTable);
 

@@ -22,6 +22,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -49,7 +50,7 @@ public class ExampleMoveActorScreen extends BaseScreen {
 
     private PlayerActor actor;
 
-    private Texture texturePlayer;
+    private TextureRegion texturePlayer;
 
     /**
      * Create the screen. Since this constructor cannot be invoked before libGDX is fully started,
@@ -63,8 +64,9 @@ public class ExampleMoveActorScreen extends BaseScreen {
         stage = new Stage(new FitViewport(640, 360));
         position = new Vector3(stage.getCamera().position);
 
-        texturePlayer = game.getManager().get("daxbotsheet_alone.png");
-        texturePlayer.getHeight();
+        Texture tmp = game.getManager().get("daxbotsheet_alone.png");
+        texturePlayer = new TextureRegion(tmp);
+        texturePlayer.getRegionHeight();
 
     }
 
@@ -78,7 +80,7 @@ public class ExampleMoveActorScreen extends BaseScreen {
         stage.getCamera().update();
 
         actor = new PlayerActor(texturePlayer);
-        actor.setSize(texturePlayer.getWidth(), texturePlayer.getHeight());
+        actor.setSize(texturePlayer.getRegionWidth(), texturePlayer.getRegionHeight());
         actor.setPosition(0, 0);
 
         stage.addActor(actor);
@@ -136,25 +138,4 @@ public class ExampleMoveActorScreen extends BaseScreen {
         stage.dispose();
     }
 
-    /**
-     * This is the contact listener that checks the world for collisions and contacts.
-     * I use this method to evaluate when things collide, such as player colliding with floor.
-     */
-    private class GameContactListener implements ContactListener {
-        /**
-         * This method is executed when a contact has started: when two fixtures just collided.
-         */
-        @Override
-        public void beginContact(Contact contact) { }
-
-        /**
-         * This method is executed when a contact has finished: two fixtures are no more colliding.
-         */
-        @Override
-        public void endContact(Contact contact) { }
-
-        // Here two lonely methods that I don't use but have to override anyway.
-        @Override public void preSolve(Contact contact, Manifold oldManifold) { }
-        @Override public void postSolve(Contact contact, ContactImpulse impulse) { }
-    }
 }
