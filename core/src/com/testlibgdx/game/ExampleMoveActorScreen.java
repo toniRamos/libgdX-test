@@ -23,16 +23,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Manifold;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.testlibgdx.game.entities.PlayerActor;
 
@@ -119,6 +112,41 @@ public class ExampleMoveActorScreen extends BaseScreen {
 
         if(Gdx.input.isKeyPressed(Input.Keys.R)) {
             actor.setPosition(0, 0);
+            actor.addAction(new Actions().fadeIn(0));
+        }
+
+        //Move
+        if(Gdx.input.isKeyPressed(Input.Keys.M)) {
+            actor.addAction(new Actions().moveTo(150,150,1));
+        }
+
+        //Fade in and fade out
+        if(Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+            if(actor.isVisible()){
+                actor.addAction(
+                    new Actions().sequence(
+                        new Actions().fadeOut(0.5f),
+                        new Actions().visible(false)
+                    )
+                );
+            } else {
+                actor.addAction(
+                    new Actions().sequence(
+                        new Actions().visible(true),
+                        new Actions().fadeIn(0.5f)
+                    )
+                );
+            }
+        }
+
+        //Touch screen o touche mouse move actor
+        if(Gdx.input.isTouched()) {
+            actor.addAction(
+                new Actions().moveTo(
+                        Gdx.input.getX()-actor.getWidth()/2,
+                        Gdx.graphics.getHeight()-Gdx.input.getY()-(actor.getHeight()*1.25f),
+                        1)
+            );
         }
 
         // Update the stage. This will update the player speed.

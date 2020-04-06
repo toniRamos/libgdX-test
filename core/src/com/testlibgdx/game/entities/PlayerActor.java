@@ -18,6 +18,8 @@ public class PlayerActor  extends Actor{
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
+        batch.setColor(this.getColor());
         batch.draw(this.player, getX(), getY(), getWidth(), getHeight());
     }
 
